@@ -51,6 +51,7 @@
 
   <scopes>
     <include syntax="self" collection="comments" />
+    <include syntax="self" collection="keywords" />
     <include syntax="self" collection="definitions" />
     <include syntax="self" collection="identifiers" />
   </scopes>
@@ -60,6 +61,55 @@
       <scope name="crystal.comment.single" spell-check="true">
         <expression>\#(.*)$</expression>
         <capture number="1" name="crystal.comment.content" />
+      </scope>
+    </collection>
+
+    <collection name="keywords">
+      <scope name="crystal.keyword">
+        <strings suffix="(?!\?)">
+          <string>abstract</string>
+          <string>alias</string>
+          <string>annotation</string>
+          <string>asm</string>
+          <string>begin</string>
+          <string>break</string>
+          <string>case</string>
+          <string>class</string>
+          <string>def</string>
+          <string>do</string>
+          <string>else</string>
+          <string>elsif</string>
+          <string>end</string>
+          <string>ensure</string>
+          <string>enum</string>
+          <string>extend</string>
+          <string>for</string>
+          <string>fun</string>
+          <string>if</string>
+          <string>in</string>
+          <string>include</string>
+          <string>macro</string>
+          <string>module</string>
+          <string>next</string>
+          <string>of</string>
+          <string>private</string>
+          <string>protected</string>
+          <string>require</string>
+          <string>rescue</string>
+          <string>return</string>
+          <string>select</string>
+          <string>struct</string>
+          <string>struct</string>
+          <string>super</string>
+          <string>then</string>
+          <string>union</string>
+          <string>unless</string>
+          <string>until</string>
+          <string>when</string>
+          <string>while</string>
+          <string>with</string>
+          <string>yield</string>
+        </strings>
       </scope>
     </collection>
 
