@@ -1,0 +1,8 @@
+{
+    "identifier": "edwardloveall.Crystal",
+    "name": "Crystal",
+    "organization": "Edward Loveall",
+    "description": "Syntax highlighting for Crystal.",
+    "version": "1.0",
+    "categories": ["languages"]
+}

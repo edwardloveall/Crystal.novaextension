@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<syntax name="crystal">
+  <meta>
+    <name>Crystal</name>
+    <type>script</type>
+    <preferred-file-extension>cr</preferred-file-extension>
+  </meta>
+
+  <detectors>
+    <extension priority="1.0">cr</extension>
+  </detectors>
+
+  <comments>
+    <single>
+      <expression>#</expression>
+    </single>
+  </comments>
+
+  <scopes>
+    <include syntax="self" collection="comments" />
+  </scopes>
+
+  <collections>
+    <collection name="comments">
+      <scope name="crystal.comment.single" spell-check="true">
+        <expression>\#(.*)$</expression>
+        <capture number="1" name="crystal.comment.content" />
+      </scope>
+    </collection>
+  </collections>
+</syntax>
