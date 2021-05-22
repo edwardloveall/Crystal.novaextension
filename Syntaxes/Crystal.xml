@@ -35,6 +35,7 @@
 
   <scopes>
     <include syntax="self" collection="comments" />
+    <include syntax="self" collection="definitions" />
   </scopes>
 
   <collections>
@@ -42,6 +43,24 @@
       <scope name="crystal.comment.single" spell-check="true">
         <expression>\#(.*)$</expression>
         <capture number="1" name="crystal.comment.content" />
+      </scope>
+    </collection>
+
+    <collection name="definitions">
+      <scope name="crystal.value.number.float.fraction">
+        <expression>\b[0-9][0-9_]*\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?(f32|f64)?\b</expression>
+      </scope>
+      <scope name="crystal.value.number.float.exponent">
+        <expression>\b[0-9][0-9_]*(\.[0-9][0-9_]*)?[eE][+-]?[0-9_]+(f32|f64)?\b</expression>
+      </scope>
+      <scope name="crystal.value.number.integer.decimal">
+        <expression>\b(?!0[0-9])[0-9][0-9_]*([ui](8|16|32|64|128))?\b</expression>
+      </scope>
+      <scope name="crystal.value.number.integer.hexadecimal">
+        <expression>\b0x[a-fA-F0-9_]+([ui](8|16|32|64|128))?\b</expression>
+      </scope>
+      <scope name="crystal.value.number.integer.octal">
+        <expression>\b0o[0-7_]+([ui](8|16|32|64|128))?\b</expression>
       </scope>
     </collection>
   </collections>
