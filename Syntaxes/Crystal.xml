@@ -10,6 +10,22 @@
     <extension priority="1.0">cr</extension>
   </detectors>
 
+  <indentation>
+    <increase>
+      <expression>
+        (^\s*(class|def|elsif|else|rescue|ensure|for|if|begin|with)\b.*$) #keywords
+        |(\b(do)$) #do
+        |(\{[^}\"']*$) #blocks
+        |(\[[^\]\"']*$) #arrays
+        |(\([^)\"']*$) #tuples
+        |(\|[a-zA-Z0-9_,\s]+\|$) #closures
+      </expression>
+    </increase>
+    <decrease>
+      <expression>(^\s*(elsif|else|rescue|ensure|end)\b)|(^\s*(\s*/\*.*\*/\s*)*[\}\]\)\\])</expression>
+    </decrease>
+  </indentation>
+
   <comments>
     <single>
       <expression>#</expression>
