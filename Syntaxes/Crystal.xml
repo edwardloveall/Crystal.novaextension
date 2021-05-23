@@ -131,6 +131,17 @@
       <scope name="crystal.value.number.integer.octal">
         <expression>\b0o[0-7_]+([ui](8|16|32|64|128))?\b</expression>
       </scope>
+      <scope name="crystal.value.symbol.unquoted">
+        <expression>(?&lt;!:):[A-Za-z](\w|[\x{9F}-\x{10FFFF}])*(\?|!)?</expression>
+      </scope>
+      <scope name="crystal.value.symbol.quoted">
+        <starts-with>
+          <expression>(?&lt;!:):&quot;</expression>
+        </starts-with>
+        <ends-with>
+          <expression>(?&lt;![\\])&quot;</expression>
+        </ends-with>
+      </scope>
     </collection>
 
     <collection name="identifiers">
