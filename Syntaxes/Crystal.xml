@@ -54,6 +54,7 @@
     <include syntax="self" collection="keywords" />
     <include syntax="self" collection="values" />
     <include syntax="self" collection="identifiers" />
+    <include syntax="self" collection="strings" />
     <include syntax="self" collection="syntax" />
   </scopes>
 
@@ -115,8 +116,6 @@
     </collection>
 
     <collection name="values">
-      <include syntax="self" collection="strings" />
-
       <scope name="crystal.value.number.float.fraction">
         <expression>\b[0-9][0-9_]*\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?(f32|f64)?\b</expression>
       </scope>
@@ -147,36 +146,16 @@
     </collection>
 
     <collection name="strings">
-      <scope name="crystal.string.block">
-        <starts-with>
-          <expression>%(q|Q|r|i|I|w|W|x)?(\{)</expression>
-          <capture number="1" name="crystal.string.block.modifier" />
-          <capture number="2" name="crystal.string.block.delimiter" />
-        </starts-with>
-        <ends-with>
-          <expression>\}</expression>
-          <capture number="0" name="crystal.string.block.delimiter" />
-        </ends-with>
-        <subscopes>
-          <scope name="crystal.string.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
-          <include syntax="self" collection="string-interpolation" />
-        </subscopes>
-      </scope>
       <scope name="crystal.string.double-quoted">
         <starts-with>
           <expression>&quot;</expression>
           <capture number="0" name="crystal.string.double-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <expression>(?:[^&quot;\\]|\\.)*(&quot;|$)</expression>
-          <capture number="1" name="crystal.string.double-quoted.delimiter" />
+          <expression>(?&lt;![\\])&quot;</expression>
+          <capture number="0" name="crystal.string.double-quoted.delimiter" />
         </ends-with>
         <subscopes>
-          <scope name="crystal.string.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
       </scope>
@@ -186,109 +165,220 @@
           <capture number="0" name="crystal.string.single-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <expression>(?:[^&apos;\\]|\\.)*(&apos;|$)</expression>
-          <capture number="1" name="crystal.string.single-quoted.delimiter" />
+          <expression>(?&lt;![\\])&apos;</expression>
+          <capture number="0" name="crystal.string.single-quoted.delimiter" />
         </ends-with>
-        <subscopes />
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
       </scope>
+      <!-- Percent encoded with parenthesis -->
       <scope name="crystal.string.percent-quoted">
         <starts-with>
-          <expression>(?i)(%[iqrswx]?)(\()</expression>
-          <capture number="1" name="crystal.string.percent-quoted.prefix" />
-          <capture number="2" name="crystal.string.percent-quoted.delimiter" />
+          <expression>(%[Q]?)(\()</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <expression>(\)|$)</expression>
-          <capture number="1" name="crystal.string.percent-quoted.delimiter" />
+          <expression>\)</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </ends-with>
         <subscopes>
-          <scope name="crystal.string.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
       </scope>
+      <!-- Percent encoded with parenthesis, no interpolation -->
       <scope name="crystal.string.percent-quoted">
         <starts-with>
-          <expression>(?i)(%[iqrswx]?)(\[)</expression>
-          <capture number="1" name="crystal.string.percent-quoted.prefix" />
-          <capture number="2" name="crystal.string.percent-quoted.delimiter" />
+          <expression>%q\(</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <expression>(\]|$)</expression>
-          <capture number="1" name="crystal.string.percent-quoted.delimiter" />
+          <expression>\)</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </ends-with>
-        <subscopes>
-          <scope name="crystal.string.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
-          <include syntax="self" collection="string-interpolation" />
-        </subscopes>
       </scope>
+      <!-- Percent encoded with square bracket -->
       <scope name="crystal.string.percent-quoted">
         <starts-with>
-          <expression>(?i)(%[iqrswx]?)(\{)</expression>
-          <capture number="1" name="crystal.string.percent-quoted.prefix" />
-          <capture number="2" name="crystal.string.percent-quoted.delimiter" />
+          <expression>(%[Q]?)(\[)</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <expression>(\}|$)</expression>
-          <capture number="1" name="crystal.string.percent-quoted.delimiter" />
+          <expression>\]</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </ends-with>
         <subscopes>
-          <scope name="crystal.string.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
       </scope>
+      <!-- Percent encoded with square bracket, no interpolation -->
       <scope name="crystal.string.percent-quoted">
         <starts-with>
-          <expression>(?i)(%[iqrswx]?)([^a-zA-Z\d\s])</expression>
-          <capture number="1" name="crystal.string.percent-quoted.prefix" />
-          <capture number="2" name="crystal.string.percent-quoted.delimiter" />
+          <expression>%q\[</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <template>($2|$)</template>
-          <capture number="1" name="crystal.string.percent-quoted.delimiter" />
+          <expression>\]</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </ends-with>
+      </scope>
+      <!-- Percent encoded with curly bracket -->
+      <scope name="crystal.string.percent-quoted">
+        <starts-with>
+          <expression>(%[Q]?)(\{)</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\}</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </ends-with>
         <subscopes>
-          <scope name="crystal.string.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
       </scope>
-      <scope name="crystal.string.heredoc">
+      <!-- Percent encoded with curly bracket, no interpolation -->
+      <scope name="crystal.string.percent-quoted">
         <starts-with>
-          <expression>(&lt;&lt;(?:-|~))\s?([a-zA-Z0-9_\x7f-\xff]+)</expression>
-          <capture number="1" name="crystal.string.heredoc.delimiter" />
-          <capture number="2" name="crystal.string.heredoc.identifier" />
+          <expression>%q\{</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <template>^\s*($2)</template>
-          <capture number="1" name="crystal.string.heredoc.identifier" />
-          <capture number="2" name="crystal.string.heredoc.delimiter" />
+          <expression>\}</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </ends-with>
+        <!--
+          Since the curly bracket is used for string interpolation,
+          we need to match it as a subscope so we can ignore it.
+        -->
+        <subscopes>
+          <scope name="crystal.string.percent-quoted">
+            <starts-with>
+              <expression>\#\{</expression>
+            </starts-with>
+            <ends-with>
+              <expression>\}</expression>
+            </ends-with>
+          </scope>
+        </subscopes>
+      </scope>
+      <!-- Percent encoded with angle bracket -->
+      <scope name="crystal.string.percent-quoted">
+        <starts-with>
+          <expression>(%[Q]?)(&lt;)</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>&gt;</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </ends-with>
         <subscopes>
-          <scope name="crystal.string.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
       </scope>
-      <scope name="crystal.string.regex">
+      <!-- Percent encoded with angle bracket, no interpolation -->
+      <scope name="crystal.string.percent-quoted">
         <starts-with>
-          <expression>(?i)(?&lt;=[=(,\+~!?\[|&amp;]|return|when|;|=&gt;)\s*/(?![/*+{}?\r\n])</expression>
+          <expression>%q&lt;</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </starts-with>
         <ends-with>
-          <expression>/([iomxuesn]+\b)?</expression>
+          <expression>&gt;</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </ends-with>
+      </scope>
+      <!-- Percent encoded with pipe -->
+      <scope name="crystal.string.percent-quoted">
+        <starts-with>
+          <expression>(%[Q]?)(\|)</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\|</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
         </ends-with>
         <subscopes>
-          <scope name="crystal.regex.escape">
-            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
-          </scope>
           <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
+      <!-- Percent encoded with pipe, no interpolation -->
+      <scope name="crystal.string.percent-quoted">
+        <starts-with>
+          <expression>%q\|</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\|</expression>
+          <capture number="0" name="crystal.string.percent-quoted.delimiter" />
+        </ends-with>
+      </scope>
+      <!-- Percent array with parenthesis -->
+      <scope name="crystal.string.percent-array">
+        <starts-with>
+          <expression>%w\(</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\)</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with square brackets -->
+      <scope name="crystal.string.percent-array">
+        <starts-with>
+          <expression>%w\[</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\]</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with curly brackets -->
+      <scope name="crystal.string.percent-array">
+        <starts-with>
+          <expression>%w\{</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\}</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with angle brackets -->
+      <scope name="crystal.string.percent-array">
+        <starts-with>
+          <expression>%w&lt;</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>&gt;</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with pipes -->
+      <scope name="crystal.string.percent-array">
+        <starts-with>
+          <expression>%w\|</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\|</expression>
+          <capture number="0" name="crystal.string.percent-array.delimiter" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" />
         </subscopes>
       </scope>
     </collection>
@@ -301,7 +391,10 @@
         <ends-with>
           <expression>\}</expression>
         </ends-with>
-        <subscopes />
+        <subscopes>
+          <include syntax="self" collection="strings" />
+          <include syntax="self" collection="values" />
+        </subscopes>
       </scope>
     </collection>
 
