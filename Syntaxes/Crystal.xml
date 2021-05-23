@@ -381,6 +381,21 @@
           <include syntax="self" />
         </subscopes>
       </scope>
+      <scope name="crystal.string.heredoc">
+        <starts-with>
+          <expression>(&lt;&lt;(?:-))\s?([a-zA-Z]\w*)</expression>
+          <capture number="1" name="crystal.string.heredoc.delimiter" />
+          <capture number="2" name="crystal.string.heredoc.identifier" />
+        </starts-with>
+        <ends-with>
+          <template>^\s*($2)$</template>
+          <capture number="1" name="crystal.string.heredoc.identifier" />
+          <capture number="2" name="crystal.string.heredoc.delimiter" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
     </collection>
 
     <collection name="string-interpolation">
