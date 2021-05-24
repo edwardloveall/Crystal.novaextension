@@ -55,6 +55,7 @@
     <include syntax="self" collection="values" />
     <include syntax="self" collection="identifiers" />
     <include syntax="self" collection="strings" />
+    <include syntax="self" collection="symbols" />
     <include syntax="self" collection="syntax" />
   </scopes>
 
@@ -147,17 +148,6 @@
       </scope>
       <scope name="crystal.string.char.unicode">
         <expression>&apos;\\u([0-9a-fA-F]{4}|\{[0-9a-fA-F]{6}\})&apos;</expression>
-      </scope>
-      <scope name="crystal.value.symbol.unquoted">
-        <expression>(?&lt;!:):[A-Za-z](\w|[\x{9F}-\x{10FFFF}])*(\?|!)?</expression>
-      </scope>
-      <scope name="crystal.value.symbol.quoted">
-        <starts-with>
-          <expression>(?&lt;!:):&quot;</expression>
-        </starts-with>
-        <ends-with>
-          <expression>(?&lt;![\\])&quot;</expression>
-        </ends-with>
       </scope>
     </collection>
 
@@ -423,6 +413,106 @@
         <subscopes>
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
+      </scope>
+    </collection>
+
+    <collection name="symbols">
+      <scope name="crystal.value.symbol.unquoted">
+        <expression>(?&lt;!:):[A-Za-z](\w|[\x{9F}-\x{10FFFF}])*(\?|!)?</expression>
+      </scope>
+      <scope name="crystal.value.symbol.quoted">
+        <starts-with>
+          <expression>(?&lt;!:):&quot;</expression>
+        </starts-with>
+        <ends-with>
+          <expression>(?&lt;![\\])&quot;</expression>
+        </ends-with>
+      </scope>
+      <scope name="crystal.value.symbol.operation">
+        <expression>:(&lt;=&gt;|===|\[\]\?|\[\]=|\[\]|!~|=~|\*\*|&gt;&gt;|&lt;&lt;|==|!=|&gt;=|&lt;=|[\+\-\*\|/%&amp;^&gt;&lt;!~])</expression>
+      </scope>
+      <!-- Percent array with parenthesis -->
+      <scope name="crystal.value.symbol.percent-array">
+        <starts-with>
+          <expression>%i\(</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\)</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.value.symbol.percent-array">
+            <starts-with><expression>\(</expression></starts-with>
+            <ends-with><expression>\)</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with square brackets -->
+      <scope name="crystal.value.symbol.percent-array">
+        <starts-with>
+          <expression>%i\[</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\]</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.value.symbol.percent-array">
+            <starts-with><expression>\[</expression></starts-with>
+            <ends-with><expression>\]</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with curly brackets -->
+      <scope name="crystal.value.symbol.percent-array">
+        <starts-with>
+          <expression>%i\{</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\}</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.value.symbol.percent-array">
+            <starts-with><expression>\{</expression></starts-with>
+            <ends-with><expression>\}</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with angle brackets -->
+      <scope name="crystal.value.symbol.percent-array">
+        <starts-with>
+          <expression>%i&lt;</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>&gt;</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.value.symbol.percent-array">
+            <starts-with><expression>&lt;</expression></starts-with>
+            <ends-with><expression>&gt;</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
+      <!-- Percent array with pipes -->
+      <scope name="crystal.value.symbol.percent-array">
+        <starts-with>
+          <expression>%i\|</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </starts-with>
+        <ends-with>
+          <expression>\|</expression>
+          <capture number="0" name="crystal.value.symbol.delimiter" />
+        </ends-with>
       </scope>
     </collection>
 
