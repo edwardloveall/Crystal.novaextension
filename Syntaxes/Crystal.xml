@@ -149,6 +149,25 @@
       <scope name="crystal.string.char.unicode">
         <expression>&apos;\\u([0-9a-fA-F]{4}|\{[0-9a-fA-F]{6}\})&apos;</expression>
       </scope>
+      <scope name="crystal.collection.array">
+        <starts-with>
+          <expression>\[</expression>
+          <capture number="0" name="crystal.bracket" />
+        </starts-with>
+        <ends-with>
+          <expression>\]</expression>
+          <capture number="0" name="crystal.bracket" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="comments" />
+          <include syntax="self" collection="values" />
+          <include syntax="self" collection="strings" />
+          <include syntax="self" collection="symbols" />
+          <scope name="crystal.comma">
+            <expression>,</expression>
+          </scope>
+        </subscopes>
+      </scope>
     </collection>
 
     <collection name="identifiers">
