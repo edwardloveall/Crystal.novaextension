@@ -52,6 +52,7 @@
   <scopes>
     <include syntax="self" collection="comments" />
     <include syntax="self" collection="keywords" />
+    <include syntax="self" collection="definitions" />
     <include syntax="self" collection="values" />
     <include syntax="self" collection="identifiers" />
     <include syntax="self" collection="strings" />
@@ -113,6 +114,16 @@
           <string>with</string>
           <string>yield</string>
         </strings>
+      </scope>
+    </collection>
+
+    <collection name="definitions">
+      <scope name="crystal.identifier.proc">
+        <expression>(-&gt;)\{</expression>
+        <capture number="1" name="crystal.identifier.method.proc-identifier" />
+      </scope>
+      <scope name="crystal.identifier.method.proc-reference">
+        <expression>\-&gt;[a-z]\w*</expression>
       </scope>
     </collection>
 
@@ -649,7 +660,7 @@
         <expression>[\(\[\{\)\]\}]</expression>
       </scope>
       <scope name="crystal.operator">
-        <expression>((\*|\*\*|&lt;&lt;|&gt;&gt;|\|\||&amp;&amp;|[+-/%|&amp;^~=!&lt;&gt;])?\=?)</expression>
+        <expression>((\*|\*\*|&lt;&lt;|&gt;&gt;|\|\||&amp;&amp;|=&gt;|[+-/%|&amp;^~=!&lt;&gt;])?\=?)</expression>
       </scope>
     </collection>
   </collections>
