@@ -433,6 +433,100 @@
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
       </scope>
+      <scope name="crystal.string.regex">
+        <starts-with>
+          <expression>\/</expression>
+        </starts-with>
+        <ends-with>
+          <expression>/([imx]+\b)?</expression>
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.regex.escape">
+            <expression>\\(?:\\|/|`|n|r|t|b|f|\#)</expression>
+          </scope>
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
+      <!-- Precent regex with parenthesis -->
+      <scope name="crystal.string.regex.percent-escaped">
+        <starts-with>
+          <expression>%r\(</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\)</expression>
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.string.regex.percent-escaped">
+            <starts-with><expression>\(</expression></starts-with>
+            <ends-with><expression>\)</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
+      <!-- Precent regex with square brackets -->
+      <scope name="crystal.string.regex.percent-escaped">
+        <starts-with>
+          <expression>%r\[</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\]</expression>
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.string.regex.percent-escaped">
+            <starts-with><expression>\[</expression></starts-with>
+            <ends-with><expression>\]</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
+      <!-- Precent regex with curly brackets -->
+      <scope name="crystal.string.regex.percent-escaped">
+        <starts-with>
+          <expression>%r{</expression>
+        </starts-with>
+        <ends-with>
+          <expression>}</expression>
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.string.regex.percent-escaped">
+            <starts-with><expression>{</expression></starts-with>
+            <ends-with><expression>}</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
+      <!-- Precent regex with angle brackets -->
+      <scope name="crystal.string.regex.percent-escaped">
+        <starts-with>
+          <expression>%r&lt;</expression>
+        </starts-with>
+        <ends-with>
+          <expression>&gt;</expression>
+        </ends-with>
+        <subscopes>
+          <scope name="crystal.string.regex.percent-escaped">
+            <starts-with><expression>&lt;</expression></starts-with>
+            <ends-with><expression>&gt;</expression></ends-with>
+          </scope>
+          <include syntax="self" />
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
+      <!-- Precent regex with pipes -->
+      <scope name="crystal.string.regex.percent-escaped">
+        <starts-with>
+          <expression>%r\|</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\|</expression>
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
     </collection>
 
     <collection name="symbols">
@@ -447,7 +541,7 @@
           <expression>(?&lt;![\\])&quot;</expression>
         </ends-with>
       </scope>
-      <scope name="crystal.value.symbol.operation">
+      <scope name="crystal.value.symbol.operator">
         <expression>:(&lt;=&gt;|===|\[\]\?|\[\]=|\[\]|!~|=~|\*\*|&gt;&gt;|&lt;&lt;|==|!=|&gt;=|&lt;=|[\+\-\*\|/%&amp;^&gt;&lt;!~])</expression>
       </scope>
       <!-- Percent array with parenthesis -->
