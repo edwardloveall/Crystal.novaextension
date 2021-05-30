@@ -118,6 +118,21 @@
     </collection>
 
     <collection name="definitions">
+      <scope name="crystal.definition.class">
+        <symbol type="class">
+          <context behavior="start" group="class" />
+        </symbol>
+        <expression>\b(class)\s+(?:(\w[\w\x{9F}-\x{10FFFF}]*)(::))?([a-zA-Z_][\w\x{9F}-\x{10FFFF}]*)(?:\s*(&lt;)\s*(?:(?:([a-zA-Z_][\w\x{9F}-\x{10FFFF}]*)(::))?([a-zA-Z_][\w\x{9F}-\x{10FFFF}]*))?)?</expression>
+        <capture number="1" name="crystal.keyword" />
+        <capture number="2" name="crystal.identifier.class.type.module.name" />
+        <capture number="3" name="crystal.operator" />
+        <capture number="4" name="crystal.identifier.class.type.name" />
+        <capture number="5" name="crystal.operator" />
+        <capture number="6" name="crystal.identifier.type.superclass.module" />
+        <capture number="7" name="crystal.operator" />
+        <capture number="8" name="crystal.identifier.type.superclass" />
+      </scope>
+
       <scope name="crystal.definition.class-method">
         <symbol type="static-method">
           <context behavior="start" group="method" />
