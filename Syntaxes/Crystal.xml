@@ -216,9 +216,6 @@
           <expression>(?&lt;![\\])&apos;</expression>
           <capture number="0" name="crystal.string.single-quoted.delimiter" />
         </ends-with>
-        <subscopes>
-          <include syntax="self" collection="string-interpolation" />
-        </subscopes>
       </scope>
       <!-- Percent encoded with parenthesis -->
       <scope name="crystal.string.percent-quoted">
