@@ -535,6 +535,93 @@
           <include syntax="self" collection="string-interpolation" />
         </subscopes>
       </scope>
+      <scope name="crystal.string.command">
+        <starts-with><expression>(?&lt;![\\])`</expression></starts-with>
+        <ends-with><expression>(?&lt;![\\])`</expression></ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
+      <!-- Precent command with parenthesis -->
+      <scope name="crystal.string.command.percent-escaped">
+        <starts-with>
+          <expression>%x\(</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\)</expression>
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+          <include syntax="self" />
+          <scope name="crystal.string.command.percent-escaped">
+            <starts-with><expression>\(</expression></starts-with>
+            <ends-with><expression>\)</expression></ends-with>
+          </scope>
+        </subscopes>
+      </scope>
+      <!-- Precent command with square brackets -->
+      <scope name="crystal.string.command.percent-escaped">
+        <starts-with>
+          <expression>%x\[</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\]</expression>
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+          <include syntax="self" />
+          <scope name="crystal.string.command.percent-escaped">
+            <starts-with><expression>\[</expression></starts-with>
+            <ends-with><expression>\]</expression></ends-with>
+          </scope>
+        </subscopes>
+      </scope>
+      <!-- Precent command with curly brackets -->
+      <scope name="crystal.string.command.percent-escaped">
+        <starts-with>
+          <expression>%x{</expression>
+        </starts-with>
+        <ends-with>
+          <expression>}</expression>
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+          <include syntax="self" />
+          <scope name="crystal.string.command.percent-escaped">
+            <starts-with><expression>{</expression></starts-with>
+            <ends-with><expression>}</expression></ends-with>
+          </scope>
+        </subscopes>
+      </scope>
+      <!-- Precent command with angle brackets -->
+      <scope name="crystal.string.command.percent-escaped">
+        <starts-with>
+          <expression>%x&lt;</expression>
+        </starts-with>
+        <ends-with>
+          <expression>&gt;</expression>
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+          <include syntax="self" />
+          <scope name="crystal.string.command.percent-escaped">
+            <starts-with><expression>&lt;</expression></starts-with>
+            <ends-with><expression>&gt;</expression></ends-with>
+          </scope>
+        </subscopes>
+      </scope>
+      <!-- Precent command with pipes -->
+      <scope name="crystal.string.command.percent-escaped">
+        <starts-with>
+          <expression>%x\|</expression>
+        </starts-with>
+        <ends-with>
+          <expression>\|</expression>
+        </ends-with>
+        <subscopes>
+          <include syntax="self" collection="string-interpolation" />
+        </subscopes>
+      </scope>
     </collection>
 
     <collection name="symbols">
