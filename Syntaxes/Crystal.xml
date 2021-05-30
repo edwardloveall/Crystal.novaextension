@@ -118,6 +118,100 @@
     </collection>
 
     <collection name="definitions">
+      <scope name="crystal.definition.class-method">
+        <symbol type="static-method">
+          <context behavior="start" group="method" />
+          <display-name>
+            <component selector="crystal.identifier.method" prepend="self." />
+          </display-name>
+        </symbol>
+        <starts-with>
+          <expression>\b(def)\s+(self)(.)([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)</expression>
+          <capture number="1" name="crystal.keyword" />
+          <capture number="2" name="crystal.keyword" />
+          <capture number="3" name="crystal.operator" />
+          <capture number="4" name="crystal.identifier.method" />
+        </starts-with>
+        <ends-with />
+        <subscopes anchored="true">
+          <include syntax="self" collection="comments" optional="true" repeat="true" />
+          <scope name="crystal.arguments">
+            <starts-with>
+              <expression>\(</expression>
+              <capture number="0" name="crystal.bracket" />
+            </starts-with>
+            <ends-with>
+              <expression>\)</expression>
+              <capture number="0" name="crystal.bracket" />
+            </ends-with>
+            <subscopes>
+              <include syntax="self" collection="comments" />
+              <scope name="crystal.separator">
+                <expression>,</expression>
+              </scope>
+              <scope name="crystal.identifier.args">
+                <expression>\*args</expression>
+              </scope>
+              <scope name="crystal.identifier.argument.name">
+                <symbol type="argument" />
+                <expression>(?&lt;!\=)\b[\w][\w\x{9F}-\x{10FFFF}]*\b</expression>
+              </scope>
+              <include syntax="self" collection="values" />
+              <include syntax="self" collection="syntax" />
+            </subscopes>
+          </scope>
+        </subscopes>
+      </scope>
+
+      <scope name="crystal.definition.method.no-parenthesis">
+        <symbol type="method">
+          <context behavior="start" group="method" />
+        </symbol>
+        <expression>\b(def)\s+([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)$</expression>
+        <capture number="1" name="crystal.keyword" />
+        <capture number="2" name="crystal.identifier.method.name" />
+      </scope>
+
+      <scope name="crystal.definition.method">
+        <symbol type="method">
+          <context behavior="start" group="method" />
+        </symbol>
+        <starts-with>
+          <expression>\b(def)\s+([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)</expression>
+          <capture number="1" name="crystal.keyword" />
+          <capture number="2" name="crystal.identifier.method.name" />
+        </starts-with>
+        <ends-with />
+        <subscopes anchored="true">
+          <include syntax="self" collection="comments" optional="true" repeat="true" />
+          <scope name="crystal.arguments">
+            <starts-with>
+              <expression>\(</expression>
+              <capture number="0" name="crystal.bracket" />
+            </starts-with>
+            <ends-with>
+              <expression>\)</expression>
+              <capture number="0" name="crystal.bracket" />
+            </ends-with>
+            <subscopes>
+              <include syntax="self" collection="comments" />
+              <scope name="crystal.separator">
+                <expression>,</expression>
+              </scope>
+              <scope name="crystal.identifier.args">
+                <expression>\*args</expression>
+              </scope>
+              <scope name="crystal.identifier.argument.name">
+                <symbol type="argument" />
+                <expression>(?&lt;!\=)\b[a-zA-Z_][A-Za-zÀ-ÖØ-öø-ÿŸřŘšŠžŽ0-9_]*\b</expression>
+              </scope>
+              <include syntax="self" collection="values" />
+              <include syntax="self" collection="syntax" />
+            </subscopes>
+          </scope>
+        </subscopes>
+      </scope>
+
       <scope name="crystal.identifier.proc">
         <expression>(-&gt;)\{</expression>
         <capture number="1" name="crystal.identifier.method.proc-identifier" />
@@ -157,6 +251,9 @@
     </collection>
 
     <collection name="values">
+      <include syntax="self" collection="strings" />
+      <include syntax="self" collection="symbols" />
+
       <scope name="crystal.value.null">
         <strings>
           <string>nil</string>
@@ -219,6 +316,27 @@
       </scope>
       <scope name="crystal.identifier.variable.class">
         <expression>@@[a-z][\w]*</expression>
+      </scope>
+      <scope name="crystal.identifier.module">
+        <expression>\b(\w[\w\x{9F}-\x{10FFFF}]*)::\b</expression>
+      </scope>
+      <scope name="crystal.identifier.method">
+        <expression>\b(?&lt;=\.)(\w[\w\x{9F}-\x{10FFFF}]*)(?=\()\b</expression>
+      </scope>
+      <scope name="crystal.identifier.property">
+        <expression>\b(?&lt;=\.)(\w[\w\x{9F}-\x{10FFFF}]*)(?!\()\b</expression>
+      </scope>
+      <scope name="crystal.identifier.function">
+        <expression>\b(?&lt;!\.)(\w[\w\x{9F}-\x{10FFFF}]*)(?=\()\b</expression>
+      </scope>
+      <scope name="crystal.identifier.constant">
+        <expression>\b(?&lt;![a-z0-9_])[A-Z_][A-Z0-9_]*\b</expression>
+      </scope>
+      <scope name="crystal.identifier.type">
+        <expression>\b(?&lt;![a-z0-9_])[A-Z_][\w\x{9F}-\x{10FFFF}]*\b</expression>
+      </scope>
+      <scope name="crystal.identifier">
+        <expression>\b\w[\w\x{9F}-\x{10FFFF}]*\b</expression>
       </scope>
     </collection>
 
@@ -769,6 +887,22 @@
     </collection>
 
     <collection name="syntax">
+      <scope name="crystal.block">
+        <symbol type="block">
+          <context behavior="subtree" />
+        </symbol>
+        <starts-with>
+          <expression>\{</expression>
+          <capture number="0" name="crystal.bracket" />
+        </starts-with>
+        <ends-with>
+          <expression>\}</expression>
+          <capture number="0" name="crystal.bracket" />
+        </ends-with>
+        <subscopes>
+          <include syntax="self" />
+        </subscopes>
+      </scope>
       <scope name="crystal.bracket">
         <expression>[\(\[\{\)\]\}]</expression>
       </scope>
