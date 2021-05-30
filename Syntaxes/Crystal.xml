@@ -13,7 +13,7 @@
   <indentation>
     <increase>
       <expression>
-        (^\s*(class|def|elsif|else|rescue|ensure|for|if|begin|with)\b.*$) #keywords
+        (^\s*(class|def|elsif|else|rescue|ensure|for|if|begin|until|when|with)\b.*$) #keywords
         |(\b(do)$) #do
         |(\{[^}\"']*$) #blocks
         |(\[[^\]\"']*$) #arrays
@@ -51,12 +51,10 @@
 
   <scopes>
     <include syntax="self" collection="comments" />
-    <include syntax="self" collection="keywords" />
     <include syntax="self" collection="definitions" />
+    <include syntax="self" collection="keywords" />
     <include syntax="self" collection="values" />
     <include syntax="self" collection="identifiers" />
-    <include syntax="self" collection="strings" />
-    <include syntax="self" collection="symbols" />
     <include syntax="self" collection="syntax" />
   </scopes>
 
@@ -69,6 +67,8 @@
     </collection>
 
     <collection name="keywords">
+      <include syntax="self" collection="strings" />
+      <include syntax="self" collection="symbols" />
       <scope name="crystal.keyword">
         <strings suffix="(?!\?)">
           <string>abstract</string>
@@ -124,6 +124,35 @@
       </scope>
       <scope name="crystal.identifier.method.proc-reference">
         <expression>\-&gt;[a-z]\w*</expression>
+      </scope>
+
+      <scope name="crystal.definition.block">
+        <symbol type="block">
+          <context behavior="start" />
+        </symbol>
+        <expression>\b(case|do|for|begin|until|while|with)\b</expression>
+        <capture number="1" name="crystal.keyword" />
+      </scope>
+      <scope name="crystal.definition.block-inline">
+        <symbol type="block">
+          <context behavior="start" />
+        </symbol>
+        <expression>(?:^\s*)(if|unless)\b</expression>
+        <capture number="1" name="crystal.keyword" />
+      </scope>
+      <scope name="crystal.definition.block-next">
+        <symbol type="block">
+          <context behavior="next" />
+        </symbol>
+        <expression>(?:^\s*)(elsif|else|rescue|ensure|when)\b</expression>
+        <capture number="1" name="crystal.keyword" />
+      </scope>
+      <scope name="crystal.definition.end">
+        <symbol type="block">
+          <context behavior="end" />
+        </symbol>
+        <expression>(?:^\s*)(end)\b</expression>
+        <capture number="1" name="crystal.keyword" />
       </scope>
     </collection>
 
