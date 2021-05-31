@@ -8,8 +8,14 @@ The goal is to support every common situation and a handful of edgecases dependi
 
 No plans at the moment for .ecr as the author doesn't uses it.
 
-## Future plans
+## Future Plans
 
 * Some common snippets.
 * Macros
 * All the "built-in" methods
+
+## Install Locally
+
+This extension isn't in the Nova extension library yet as it's still in early stages. To install, download this repo (via git or the download button up top), and open up the `Crystal.novaextension` folder with Nova. It will ask if you want to **Install** or **Open for Editing**.
+
+Choose **Install**.
