@@ -170,7 +170,7 @@
               </scope>
               <scope name="crystal.identifier.argument.name">
                 <symbol type="argument" />
-                <expression>(?&lt;!\=)\b[\w][\w\x{9F}-\x{10FFFF}]*\b</expression>
+                <expression>(?&lt;!\=)@{2}?\b[\w][\w\x{9F}-\x{10FFFF}]*\b</expression>
               </scope>
               <scope name="crystal.identifier.type">
                 <expression>\s?(:)\s(?&lt;![a-z0-9_])(([A-Z_][\w\x{9F}-\x{10FFFF}]*)(::)?)+\b</expression>
@@ -225,7 +225,7 @@
               </scope>
               <scope name="crystal.identifier.argument.name">
                 <symbol type="argument" />
-                <expression>(?&lt;!\=)\b[a-zA-Z_][A-Za-zÀ-ÖØ-öø-ÿŸřŘšŠžŽ0-9_]*\b</expression>
+                <expression>(?&lt;!\=)@?\b[a-zA-Z_][A-Za-zÀ-ÖØ-öø-ÿŸřŘšŠžŽ0-9_]*\b</expression>
               </scope>
               <scope name="crystal.identifier.type">
                 <expression>\s?(:)\s(?&lt;![a-z0-9_])(([A-Z_][\w\x{9F}-\x{10FFFF}]*)(::)?)+\b</expression>
