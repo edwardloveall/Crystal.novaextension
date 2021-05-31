@@ -336,6 +336,14 @@
     </collection>
 
     <collection name="identifiers">
+      <scope name="crystal.identifier.core.method">
+        <strings>
+          <string>getter</string>
+          <string>property</string>
+          <string>puts</string>
+          <string>setter</string>
+        </strings>
+      </scope>
       <scope name="crystal.identifier.variable.global">
         <expression>\$[a-z][\w]*</expression>
       </scope>
