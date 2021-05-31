@@ -628,7 +628,7 @@
       </scope>
       <scope name="crystal.string.regex">
         <starts-with>
-          <expression>\/</expression>
+          <expression>(?i)(?&lt;=[=(,\+~!?\[|&amp;]|return|when|;|=&gt;|^)\s*/(?![/*+{}?\r\n])</expression>
         </starts-with>
         <ends-with>
           <expression>/([imx]+\b)?</expression>
