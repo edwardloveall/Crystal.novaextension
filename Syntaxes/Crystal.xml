@@ -13,7 +13,7 @@
   <indentation>
     <increase>
       <expression>
-        (^\s*(begin|class|def|else|elsif|ensure|for|if|lib|rescue|until|when|with)\b.*$) #keywords
+        (^\s*(begin|class|def|else|elsif|ensure|for|if|lib|module|rescue|until|when|with)\b.*$) #keywords
         |(\b(do)$) #do
         |(\{[^}\"']*$) #blocks
         |(\[[^\]\"']*$) #arrays
