@@ -2,7 +2,7 @@
     "identifier": "edwardloveall.Crystal",
     "name": "Crystal",
     "organization": "Edward Loveall",
-    "description": "Syntax highlighting for Crystal.",
-    "version": "1.0",
+    "description": "Syntax highlighting for Crystal (.cr)",
+    "version": "0.1",
     "categories": ["languages"]
 }
