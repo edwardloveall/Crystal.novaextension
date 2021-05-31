@@ -13,7 +13,7 @@
   <indentation>
     <increase>
       <expression>
-        (^\s*(class|def|elsif|else|rescue|ensure|for|if|begin|until|when|with)\b.*$) #keywords
+        (^\s*(begin|class|def|else|elsif|ensure|for|if|lib|rescue|until|when|with)\b.*$) #keywords
         |(\b(do)$) #do
         |(\{[^}\"']*$) #blocks
         |(\[[^\]\"']*$) #arrays
@@ -92,6 +92,7 @@
           <string>if</string>
           <string>in</string>
           <string>include</string>
+          <string>lib</string>
           <string>macro</string>
           <string>module</string>
           <string>next</string>
@@ -141,7 +142,7 @@
           </display-name>
         </symbol>
         <starts-with>
-          <expression>\b(def)\s+(self)(.)([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)</expression>
+          <expression>\b(def|fun)\s+(self)(.)([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)</expression>
           <capture number="1" name="crystal.keyword" />
           <capture number="2" name="crystal.keyword" />
           <capture number="3" name="crystal.operator" />
@@ -182,7 +183,7 @@
         <symbol type="method">
           <context behavior="start" group="method" />
         </symbol>
-        <expression>\b(def)\s+([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)$</expression>
+        <expression>\b(def|fun)\s+([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)$</expression>
         <capture number="1" name="crystal.keyword" />
         <capture number="2" name="crystal.identifier.method.name" />
       </scope>
@@ -192,7 +193,7 @@
           <context behavior="start" group="method" />
         </symbol>
         <starts-with>
-          <expression>\b(def)\s+([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)</expression>
+          <expression>\b(def|fun)\s+([\w][\w\x{9F}-\x{10FFFF}]*(\?|!)?)</expression>
           <capture number="1" name="crystal.keyword" />
           <capture number="2" name="crystal.identifier.method.name" />
         </starts-with>
