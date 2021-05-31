@@ -549,7 +549,10 @@
           <capture number="0" name="crystal.string.percent-array.delimiter" />
         </ends-with>
         <subscopes>
-          <include syntax="self" />
+          <scope>
+            <starts-with><expression>\(</expression></starts-with>
+            <ends-with><expression>\)</expression></ends-with>
+          </scope>
         </subscopes>
       </scope>
       <!-- Percent array with square brackets -->
@@ -563,7 +566,10 @@
           <capture number="0" name="crystal.string.percent-array.delimiter" />
         </ends-with>
         <subscopes>
-          <include syntax="self" />
+          <scope name="crystal.string.percent-array">
+            <starts-with><expression>\[</expression></starts-with>
+            <ends-with><expression>\]</expression></ends-with>
+          </scope>
         </subscopes>
       </scope>
       <!-- Percent array with curly brackets -->
@@ -577,7 +583,10 @@
           <capture number="0" name="crystal.string.percent-array.delimiter" />
         </ends-with>
         <subscopes>
-          <include syntax="self" />
+          <scope name="crystal.string.percent-array">
+            <starts-with><expression>\[</expression></starts-with>
+            <ends-with><expression>\]</expression></ends-with>
+          </scope>
         </subscopes>
       </scope>
       <!-- Percent array with angle brackets -->
@@ -591,7 +600,10 @@
           <capture number="0" name="crystal.string.percent-array.delimiter" />
         </ends-with>
         <subscopes>
-          <include syntax="self" />
+          <scope name="crystal.string.percent-array">
+            <starts-with><expression>&lt;</expression></starts-with>
+            <ends-with><expression>&gt;</expression></ends-with>
+          </scope>
         </subscopes>
       </scope>
       <!-- Percent array with pipes -->
@@ -604,9 +616,6 @@
           <expression>\|</expression>
           <capture number="0" name="crystal.string.percent-array.delimiter" />
         </ends-with>
-        <subscopes>
-          <include syntax="self" />
-        </subscopes>
       </scope>
       <scope name="crystal.string.heredoc">
         <starts-with>
