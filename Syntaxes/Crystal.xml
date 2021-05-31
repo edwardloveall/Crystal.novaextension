@@ -67,8 +67,6 @@
     </collection>
 
     <collection name="keywords">
-      <include syntax="self" collection="strings" />
-      <include syntax="self" collection="symbols" />
       <scope name="crystal.keyword">
         <strings suffix="(?!\?)">
           <string>abstract</string>
@@ -279,9 +277,6 @@
     </collection>
 
     <collection name="values">
-      <include syntax="self" collection="strings" />
-      <include syntax="self" collection="symbols" />
-
       <scope name="crystal.value.null">
         <strings>
           <string>nil</string>
@@ -309,7 +304,7 @@
         <expression>\b0o[0-7_]+([ui](8|16|32|64|128))?\b</expression>
       </scope>
       <scope name="crystal.string.char">
-        <expression>&apos;(\w|\\[abefnrtv\\]|[\x{9F}-\x{10FFFF}])&apos;</expression>
+        <expression>&apos;(\w|\\[abefnrtv\\&apos;]|[\x{9F}-\x{10FFFF}])&apos;</expression>
       </scope>
       <scope name="crystal.string.char.unicode">
         <expression>&apos;\\u([0-9a-fA-F]{4}|\{[0-9a-fA-F]{6}\})&apos;</expression>
@@ -333,6 +328,8 @@
           </scope>
         </subscopes>
       </scope>
+      <include syntax="self" collection="strings" />
+      <include syntax="self" collection="symbols" />
     </collection>
 
     <collection name="identifiers">
