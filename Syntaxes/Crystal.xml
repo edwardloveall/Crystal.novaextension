@@ -335,11 +335,35 @@
 
     <collection name="identifiers">
       <scope name="crystal.identifier.core.method">
+        <expression>(class_getter|class_property|getter|property|flag)\?</expression>
+      </scope>
+      <scope name="crystal.identifier.core.method">
+        <expression>(class_getter|class_property|getter|property|p|pp)!</expression>
+      </scope>
+      <scope name="crystal.identifier.core.method">
         <strings>
+          <string>class_getter</string>
+          <string>class_property</string>
+          <string>class_setter</string>
+          <string>compare_versions</string>
+          <string>debug</string>
+          <string>def_clone</string>
+          <string>def_equals_and_hash</string>
+          <string>def_equals</string>
+          <string>def_hash</string>
+          <string>delegate</string>
+          <string>env</string>
+          <string>forward_missing_to</string>
           <string>getter</string>
+          <string>pp</string>
           <string>property</string>
+          <string>p</string>
           <string>puts</string>
+          <string>raise</string>
+          <string>run</string>
           <string>setter</string>
+          <string>skip_file</string>
+          <string>system</string>
         </strings>
       </scope>
       <scope name="crystal.identifier.variable.global">

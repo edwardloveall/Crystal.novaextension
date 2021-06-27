@@ -11,7 +11,6 @@ No plans at the moment for .ecr as the author doesn't uses it.
 ## Future Plans
 
 * Macros
-* All the "built-in" methods
 
 ## Install Locally
 
