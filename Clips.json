@@ -1,0 +1,30 @@
+{
+  "clips": [
+    {
+      "name": "Crystal clips",
+      "children": [
+        {
+          "content": "def ${0:method}\n  $1\nend",
+          "name": "method",
+          "scope": "editor",
+          "syntax": "crystal",
+          "trigger": "def",
+        },
+        {
+          "content": "do\n  $0\nend",
+          "name": "block",
+          "scope": "editor",
+          "syntax": "crystal",
+          "trigger": "do",
+        },
+        {
+          "content": "do |${0:block vars}|\n  $1\nend",
+          "name": "block with variables",
+          "scope": "editor",
+          "syntax": "crystal",
+          "trigger": "dop",
+        }
+      ]
+    }
+  ]
+}

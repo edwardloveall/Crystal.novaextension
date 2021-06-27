@@ -10,7 +10,6 @@ No plans at the moment for .ecr as the author doesn't uses it.
 
 ## Future Plans
 
-* Some common snippets.
 * Macros
 * All the "built-in" methods
 
