@@ -357,10 +357,10 @@
         <capture number="2" name="crystal.operator" />
       </scope>
       <scope name="crystal.identifier.method">
-        <expression>\b(?&lt;=\.)(\w[\w\x{9F}-\x{10FFFF}]*)(?=\()\b</expression>
+        <expression>\b(?&lt;=\.)(\w[\w\x{9F}-\x{10FFFF}]*(\?|!)?)(?=\(\b)</expression>
       </scope>
       <scope name="crystal.identifier.property">
-        <expression>\b(?&lt;=\.)(\w[\w\x{9F}-\x{10FFFF}]*)(?!\()\b</expression>
+        <expression>\b(?&lt;=\.)(\w[\w\x{9F}-\x{10FFFF}]*(\?|!)?)</expression>
       </scope>
       <scope name="crystal.identifier.function">
         <expression>\b(?&lt;!\.)(\w[\w\x{9F}-\x{10FFFF}]*)(?=\()\b</expression>
