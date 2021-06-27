@@ -11,6 +11,8 @@ No plans at the moment for .ecr as the author doesn't uses it.
 ## Future Plans
 
 * Macros
+* File icon for .cr files (if possible)
+  * seems not possible: https://devforum.nova.app/t/file-type-icon-themes/276
 
 ## Install Locally
 
