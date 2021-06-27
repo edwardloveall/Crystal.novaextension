@@ -13,7 +13,7 @@
   <indentation>
     <increase>
       <expression>
-        (^\s*(begin|class|def|else|elsif|ensure|for|if|lib|module|rescue|until|when|with)\b.*$) #keywords
+        (^\s*(begin|class|def|else|elsif|ensure|enum|for|if|lib|module|rescue|until|when|with)\b.*$) #keywords
         |(\b(do)$) #do
         |(\{[^}\"']*$) #blocks
         |(\[[^\]\"']*$) #arrays
@@ -321,8 +321,10 @@
         <subscopes>
           <include syntax="self" collection="comments" />
           <include syntax="self" collection="values" />
+          <include syntax="self" collection="identifiers" />
           <include syntax="self" collection="strings" />
           <include syntax="self" collection="symbols" />
+          <include syntax="self" collection="syntax" />
           <scope name="crystal.comma">
             <expression>,</expression>
           </scope>
