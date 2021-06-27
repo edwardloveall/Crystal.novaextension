@@ -278,9 +278,8 @@
 
     <collection name="values">
       <scope name="crystal.value.null">
-        <strings>
-          <string>nil</string>
-        </strings>
+        <expression>(?&lt;!\.)(nil)(?!\?)</expression>
+        <capture number="1" name="crystal.value.null" />
       </scope>
       <scope name="crystal.value.boolean">
         <strings>
