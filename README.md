@@ -4,18 +4,19 @@ Provides syntax highlighting for **Crystal Lang** (currently in alpha).
 
 ## Language Support
 
-The goal is to support every common situation and a handful of edgecases depending on how esoteric and difficult (or possible) to support with Nova's syntax highlighting rules. Right now this just supports crystal and some of the lower level types.
+The goal is to support every common situation and a handful of edgecases depending on how esoteric and difficult (or possible) to support with Nova's syntax highlighting rules.
 
 No plans at the moment for .ecr as the author doesn't uses it.
 
 ## Future Plans
 
 * Macros
+* Formatter
 * File icon for .cr files (if possible)
   * seems not possible: https://devforum.nova.app/t/file-type-icon-themes/276
 
 ## Install Locally
 
-This extension isn't in the Nova extension library yet as it's still in early stages. To install, download this repo (via git or the download button up top), and open up the `Crystal.novaextension` folder with Nova. It will ask if you want to **Install** or **Open for Editing**.
+Download this repo (via git or the download button up top), and open up the `Crystal.novaextension` folder with Nova. It will ask if you want to **Install** or **Open for Editing**.
 
 Choose **Install**.

@@ -1,8 +1,10 @@
 {
-    "identifier": "edwardloveall.Crystal",
-    "name": "Crystal",
-    "organization": "Edward Loveall",
-    "description": "Syntax highlighting for Crystal (.cr)",
-    "version": "0.2",
-    "categories": ["languages"]
+  "identifier": "com.edwardloveall.Crystal",
+  "name": "Crystal",
+  "organization": "Edward Loveall",
+  "description": "Syntax highlighting for Crystal (.cr)",
+  "version": "1.0",
+  "categories": ["languages"],
+  "repository": "https://github.com/edwardloveall/Crystal.novaextension",
+  "bugs": "https://github.com/edwardloveall/Crystal.novaextension/issues"
 }
