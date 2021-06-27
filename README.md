@@ -1,4 +1,4 @@
-Provides syntax highlighting for **Crystal Lang** (currently in alpha).
+Provides syntax highlighting for **Crystal Lang**.
 
 <img width="783" alt="screenshot" src="https://raw.githubusercontent.com/edwardloveall/Crystal.novaextension/main/Images/extension/screenshot.png">
 
