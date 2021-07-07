@@ -3,8 +3,44 @@
   "name": "Crystal",
   "organization": "Edward Loveall",
   "description": "Syntax highlighting for Crystal (.cr)",
-  "version": "1.0",
-  "categories": ["languages"],
+  "version": "1.1",
+  "categories": ["clips", "formatters", "languages"],
   "repository": "https://github.com/edwardloveall/Crystal.novaextension",
-  "bugs": "https://github.com/edwardloveall/Crystal.novaextension/issues"
+  "bugs": "https://github.com/edwardloveall/Crystal.novaextension/issues",
+  "activationEvents": [
+    "onLanguage:crystal",
+    "onWorkspaceContains:shard.lock"
+  ],
+  "main": "main.js",
+  "entitlements": {
+    "process": true
+  },
+  "commands": {
+    "editor": [
+      {
+        "title": "Format Crystal",
+        "command": "crystal.format",
+        "shortcut": "opt-shift-c",
+        "when": "editorHasFocus",
+        "filters": {
+            "syntaxes": ["crystal"]
+        }
+      }
+    ]
+  },
+  "configWorkspace": [
+    {
+      "key": "com.edwardloveall.Crystal.crystalPath",
+      "title": "Crystal Executable",
+      "type": "path",
+      "default": "",
+      "description": "Path to this workspace's Crystal executable"
+    },
+    {
+      "key": "com.edwardloveall.Crystal.formatOnSave",
+      "title": "Format on Save",
+      "type": "boolean",
+      "default": false
+    }
+  ]
 }
