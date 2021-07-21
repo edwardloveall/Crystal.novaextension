@@ -1,7 +1,7 @@
 alias DogType = Labrador | Poodle | Dalmation
 
 class Dog < Species::Mammal
-  BARK = "Woof!"
+  BARK      = "Woof!"
   WAG_COUNT = 3
 
   getter name : String

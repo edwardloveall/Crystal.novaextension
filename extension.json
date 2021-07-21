@@ -3,7 +3,7 @@
   "name": "Crystal",
   "organization": "Edward Loveall",
   "description": "Syntax highlighting for Crystal (.cr)",
-  "version": "1.1",
+  "version": "1.1.1",
   "categories": ["clips", "formatters", "languages"],
   "repository": "https://github.com/edwardloveall/Crystal.novaextension",
   "bugs": "https://github.com/edwardloveall/Crystal.novaextension/issues",

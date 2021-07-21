@@ -1,4 +1,4 @@
-const format = (editor) => {
+const format = (editor, resolve, reject) => {
   try {
     const configPath = nova.workspace.config.get("com.edwardloveall.Crystal.crystalPath");
     if (configPath === "") return;
@@ -21,6 +21,7 @@ const format = (editor) => {
         editor.edit((edit) => {
            edit.replace(textRange, output);
         });
+        resolve && resolve();
       }
     })
     process.onStderr((stderr) => {
@@ -29,6 +30,7 @@ const format = (editor) => {
       notification.body = nova.localize(stderr);
       notification.actions = [nova.localize("OK")];
       nova.notifications.add(notification);
+      reject && reject(stderr);
     });
 
     const writer = process.stdin.getWriter();
@@ -48,7 +50,11 @@ exports.activate = function() {
 
     editor.onWillSave((editor) => {
       const formatOnSave = nova.workspace.config.get("com.edwardloveall.Crystal.formatOnSave");
-      if (formatOnSave) format(editor);
+      if (formatOnSave) {
+        return new Promise((resolve, reject) => {
+          const promise = format(editor, resolve, reject);
+        })
+      }
     });
   });
 
