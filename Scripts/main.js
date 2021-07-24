@@ -1,64 +1,42 @@
-const format = (editor, resolve, reject) => {
-  try {
-    const configPath = nova.workspace.config.get("com.edwardloveall.Crystal.crystalPath");
-    if (configPath === "") return;
-    const crystalPath = nova.path.expanduser(configPath);
-    const textRange = new Range(0, editor.document.length);
-    const content = editor.document.getTextInRange(textRange);
+const crystalFormat = require("./crystalFormat");
 
-    const process = new Process(
-      crystalPath,
-      {
-        args: ["tool", "format", "--no-color", "-"],
-        stdio: "pipe",
-      }
-    );
-
-    let output = "";
-    process.onStdout((stdout) => output += stdout);
-    process.onDidExit((status) => {
-      if (status === 0) {
-        editor.edit((edit) => {
-           edit.replace(textRange, output);
-        });
-        resolve && resolve();
-      }
-    })
-    process.onStderr((stderr) => {
-      let notification = new NotificationRequest("crystal-format-error");
-      notification.title = nova.localize("Crystal Format Error");
-      notification.body = nova.localize(stderr);
-      notification.actions = [nova.localize("OK")];
-      nova.notifications.add(notification);
-      reject && reject(stderr);
+exports.activate = function () {
+  const replaceDocument = (editor, text) => {
+    const documentSpan = new Range(0, editor.document.length);
+    editor.edit((edit) => {
+      edit.replace(documentSpan, text);
     });
+  };
 
-    const writer = process.stdin.getWriter();
-    writer.ready.then(() => {
-        writer.write(content);
-        writer.close();
-    });
-    process.start();
-  } catch (err) {
-    console.error("Could not call crystal tool format: " + err);
-  }
-}
+  const notifyError = (message) => {
+    let notification = new NotificationRequest("crystal-format-error");
+    notification.title = nova.localize("Crystal Format Error");
+    notification.body = nova.localize(message);
+    notification.actions = [nova.localize("OK")];
+    nova.notifications.add(notification);
+    console.error(message);
+  };
 
-exports.activate = function() {
+  const formatDocument = (editor) => {
+    const documentSpan = new Range(0, editor.document.length);
+    const documentText = editor.document.getTextInRange(documentSpan);
+    return crystalFormat(documentText)
+      .then((formattedText) => replaceDocument(editor, formattedText))
+      .catch(notifyError);
+  };
+
   nova.workspace.onDidAddTextEditor((editor) => {
     if (editor.document.syntax != "crystal") return;
 
     editor.onWillSave((editor) => {
-      const formatOnSave = nova.workspace.config.get("com.edwardloveall.Crystal.formatOnSave");
+      const formatOnSave = nova.workspace.config.get(
+        "com.edwardloveall.Crystal.formatOnSave",
+      );
       if (formatOnSave) {
-        return new Promise((resolve, reject) => {
-          const promise = format(editor, resolve, reject);
-        })
+        return formatDocument(editor);
       }
     });
   });
 
-  nova.commands.register("crystal.format", (editor) => {
-    format(editor);
-  });
+  nova.commands.register("crystal.format", formatDocument);
 };
