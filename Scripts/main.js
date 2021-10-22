@@ -12,7 +12,6 @@ exports.activate = function () {
     let notification = new NotificationRequest("crystal-format-error");
     notification.title = nova.localize("Crystal Format Error");
     notification.body = nova.localize(message);
-    notification.actions = [nova.localize("OK")];
     nova.notifications.add(notification);
     console.error(message);
   };
